@@ -1,0 +1,4 @@
+.canvas {
+  grid-area: canvas;
+  background: rgba(200, 200, 200, 1);
+}

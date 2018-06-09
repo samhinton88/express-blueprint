@@ -1,0 +1,5 @@
+.command-line {
+  grid-area: commandline;
+  background: rgba(150, 150, 150, 1);
+  height: 100px;
+}

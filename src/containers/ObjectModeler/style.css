@@ -1,0 +1,5 @@
+.object-modeler {
+  grid-area: modeler;
+  width: 400px;
+  background: rgba(240, 240, 240, 1);
+}

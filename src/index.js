@@ -1,9 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {createStore} from 'redux';
+import { Provider } from 'react-redux';
 
-const title = 'Minimal';
+import App from './components/App';
+
+import expressBlueprintApp from './reducers';
+
+const store = createStore(expressBlueprintApp);
+console.log(localStorage)
+const title = 'Express Blueprint';
 
 ReactDOM.render(
-  <div>{title}</div>,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('root')
 );
