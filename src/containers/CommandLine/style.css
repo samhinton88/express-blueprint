@@ -1,5 +1,53 @@
 .command-line {
-  grid-area: commandline;
-  background: rgba(150, 150, 150, 1);
+  width: 100%;
+  background: rgba(250, 250, 250, 1);
   height: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.command-line-container {
+  grid-area: commandline;
+  position: relative;
+  width: 100%;
+
+}
+
+.command-line-layering-container {
+  position: relative;
+/*  top: 0;
+  left: 0;*/
+  width: 100%;
+}
+
+.dummy-input {
+  background: transparent;
+  width: 100%;
+  height: 25px;
+
+  font-family: 'Courier New', Courier, monospace;
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  color: transparent;
+}
+
+.dummy-input:focus {
+  outline: none;
+
+}
+
+.underlay {
+  background: black;
+  box-shadow: inset 0 1px 2px white;
+  width: 100%;
+  height: 25px;
+  font-family: 'Courier New', Courier, monospace;
+  color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }

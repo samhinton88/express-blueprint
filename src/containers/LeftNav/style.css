@@ -1,0 +1,10 @@
+.left-nav {
+  width: 200px;
+  margin-right: 10px;
+  background: rgba(254, 254, 254, 1);
+  position: sticky;
+  height: 100%;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+  border-top: 2px solid rgba(71, 176, 233, 1);
+
+}

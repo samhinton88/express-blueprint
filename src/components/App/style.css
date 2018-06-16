@@ -8,9 +8,22 @@
     "frame frame frame modeler"
     "canvas canvas canvas modeler"
     "commandline commandline commandline modeler";
+  font-family: 'Arial'
 }
 
-.canvas-frame {
-  grid-area: frame;
-  background: rgba(100, 100, 100, 1);
+.global-container {
+  display: flex;
+  margin-top: 20px;
 }
+
+.editor-container {
+  width: 80vw;
+
+}
+
+
+body {
+  background: rgba(250, 250, 250, 1);
+}
+
+

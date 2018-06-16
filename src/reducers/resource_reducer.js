@@ -1,17 +1,29 @@
-import { ADD_RESOURCE, EDIT_RESOURCE } from '../actions/types';
+import { ADD_RESOURCE, EDIT_RESOURCE, GET_RESOURCES } from '../actions/types';
 
-const resources = [];
 
-export default function(state = { resources }, action) {
+
+export default function(state = {}, action) {
   // do not mutate state, do not nest resources
   switch (action.type) {
+    // case ADD_RESOURCE2:
+    //   return {
+    //     ...state,
+    //     [action.payload._id]:action.payload
+    //   }
 
     case ADD_RESOURCE:
-      const { blueprintId } = action;
+      const newResource = {...action.payload, blueprintId: action.blueprintId}
+      const resources = state.blueprintReducer.map((b) => {
+        if (b._id === action.blueprintId ) {
+          return {...b, resources: [...b.resources, action.payload]};
+        } else {
+          return b;
+        }
+      })
 
       return {
         ...state,
-        resources: [...resources, action.payload]
+        resources
       }
 
     case EDIT_RESOURCE:
@@ -29,6 +41,23 @@ export default function(state = { resources }, action) {
             return resource
           }
         })
+      }
+
+    case GET_RESOURCES:
+      const { blueprintId } = action;
+      const cache = [];
+      state.resources.forEach((r) => {
+
+        if (r.blueprintId === blueprintId) {
+
+          cache.push(r);
+        }
+      });
+
+
+      return {
+        ...state,
+        activeResources: cache
       }
   }
   return state
