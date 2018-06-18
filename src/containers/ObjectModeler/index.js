@@ -10,25 +10,31 @@ class ObjectModeler extends Component {
     lookUp: []
   }
 
+  handleNavClick = (e) => {
+    console.log(e);
+  }
+
   renderResourceModel = () => {
     const { modeledResource } = this.props;
     if (!modeledResource) { return }
-
+    console.log(modeledResource.props)
     const { resourceName, database, props } = modeledResource;
     const header = (
       <div key='objheader' className='resource-model-header'>
         <h2>{resourceName}</h2>
       </div>
     )
-    console.log(props)
+
 
     const body = (
       <div key='objbody'>
-        {props.map((p) => <div key={p._id}>{p.propName} {p.type}</div>)}
+        {props.map((p) => {
+          <div onClick={null} key={p._id}>{p.propName} {p.type}</div>
+        })}
       </div>
     )
 
-    console.log(body)
+
 
     return (
       <div>
@@ -43,11 +49,16 @@ class ObjectModeler extends Component {
 
 
 
+
+
     return (
       <div className='object-modeler'>
 
         <div className='object-modeler-container'>
-
+          <BreadcrumbNav
+            resourceName={modeledResource ? modeledResource.resourceName : ''}
+            lookUp={this.state.lookUp}
+            onBreadcrumbClick={this.handleNavClick}/>
           {this.renderResourceModel()}
 
 

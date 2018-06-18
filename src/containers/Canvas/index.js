@@ -1,18 +1,50 @@
 import React, { Component } from 'react';
 import style from './style.css';
 import { connect } from 'react-redux';
+import { advanceFrame, getInitialGeometry, mapRelations } from './geometry_helpers'
 
 import ResourceGraphic from '../../components/ResourceGraphic';
 import  * as actions  from '../../actions/action_creators'
 
+console.log(getInitialGeometry)
+
 class Canvas extends Component {
+  getInitialGeometry = getInitialGeometry
+  mapRelations = mapRelations
   state = {
     user: null,
-    timer: 0
+    timer: 0,
+    resourcePositions: [],
+    relations: [],
+    resourceMap: {}
   }
 
+  advanceFrame = advanceFrame
+
+  componentWillReceiveProps() {
+    this.setState({resourcePositions: [], relations: []})
+  }
+
+
   componentDidMount() {
-    this.canvasTimer = setInterval(() => this.setState({timer: this.state.timer + 0.01}), 10)
+
+    this.canvasTimer = setInterval(() => {
+      if (this.state.resourcePositions.length === 0) {
+        this.getInitialGeometry();
+      }
+
+      this.mapRelations();
+
+      if (this.props.isAnimated) {
+        this.advanceFrame()
+
+      }
+
+      this.setState({
+        timer: this.state.timer + 0.01,
+      })
+    },
+    20)
   }
 
   componentWillUnmount() {
@@ -20,49 +52,43 @@ class Canvas extends Component {
   }
 
   renderResources = () => {
-    const { blueprints, activeBlueprintId } = this.props;
-    const { timer } = this.state;
-
-    if (!activeBlueprintId || !blueprints) { return }
-    const activeBlueprint = blueprints.find((b) => b._id === activeBlueprintId)
-
-    if (!activeBlueprint) { return }
-    // console.log(this)
-    const { resources } = activeBlueprint;
-    if(!resources) { return }
-    return resources.map((r, i) => {
-      const sizeMultiplier = r.props ? r.props.length * 2 : 1;
-
-      const geometry = {
-        cx: (1000 / (resources.length + 1) * (i + 1)),
-        cy: 200 + (Math.sin(timer - i) * 20),
-        r: (sizeMultiplier) + 25
-      }
-
+    const { resourcePositions } = this.state;
+    if(!resourcePositions) { return }
+    return resourcePositions.map((res) => {
+      const { cx, cy, r, resourceName, props } = res;
       return (
-        <ResourceGraphic
-          key={r.id}
-          data={r}
-          geometry={geometry}
-          style={{fill: 'white', stroke: 'steelblue'}}
-        />
-    )})
+        <ResourceGraphic geometry={{cx, cy, r}} data={{resourceName, props}}/>
+      )
+    })
   }
 
   renderRelationshipLines = () => {
-    const { resources } = this.props;
+    const { relations, resourceMap } = this.state;
+
+    if(!relations || Object.keys(resourceMap).length === 0) { return };
+
+
+    return relations.map((rel, i) => {
+      const [origin, destination] = rel;
+
+      if (!resourceMap[origin] || !resourceMap[destination]) { return }
+
+      const {cx: ox, cy: oy} = resourceMap[origin];
+      const {cx: dx, cy: dy} = resourceMap[destination];
+
+      return <line x1={ox} x2={dx} y1={oy} y2={dy} stroke="black" key={origin + destination + i}/>
+    })
 
   }
 
   render() {
     // console.log('props in canvas', this.props)
 
-
     return (
       <div className='canvas'>
         <svg viewBox='0 0 1000 500'>
-          {this.renderResources()}
           {this.renderRelationshipLines()}
+          {this.renderResources()}
         </svg>
       </div>
     )

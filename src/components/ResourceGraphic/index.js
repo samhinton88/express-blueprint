@@ -41,7 +41,9 @@ class ResourceGraphic extends Component {
   }
 
   render() {
-    const { data: { resourceName, props }, geometry: { cx, cy, r }, style } = this.props;
+    const { data: { resourceName, props }, geometry: { cx, cy, r } } = this.props;
+
+    const style = {};
     style.fill = 'rgba(255,255, 255, 1)'
     style.stroke = 'rgba(0, 0, 0, 1)'
     return(

@@ -5,7 +5,7 @@ const User = require('../models/user');
 
 module.exports = app => {
 
-  app.delete('/api/users/:id/blueprints/:blueprintId/resources/:resourcename', async (req, res) => {
+  app.delete('/api/users/:id/blueprints/:blueprintId/resources/:resourceName', async (req, res) => {
     if (
       req.params.blueprintId === 'undefined'
       || req.params.id === 'undefined'
@@ -22,11 +22,13 @@ module.exports = app => {
     const blueprint = user.blueprints.find((bp) => String(bp._id) === req.params.blueprintId)
 
     blueprint.resources = blueprint.resources.filter(r => {
-      console.log(JSON.parse(r))
-      return r.resourceName !== req.params.resourceName
+      return JSON.parse(r).resourceName !== req.params.resourceName
+
     })
 
+
     console.log(blueprint.resources)
+
 
     await user.save()
 
@@ -37,11 +39,16 @@ module.exports = app => {
 
     const user = await User.findOne({ _id: req.params.id });
 
-    const {resourceAsString} = req.body;
+    const {resourceAsString, refs} = req.body;
 
     const candidateBlueprint = user.blueprints.find((b) => String(b._id) === req.params.blueprintId)
 
     candidateBlueprint.resources.push(resourceAsString)
+
+    if (refs) {
+
+      candidateBlueprint.relatives.push(refs)
+    }
 
     await user.save();
 
@@ -52,7 +59,10 @@ module.exports = app => {
 
     const user = await User.findOne({
       _id: req.params.id
-    }).catch((err) => console.log(err));
+    }).catch((err) => {
+      console.log(err)
+      res.send(err)
+    });
 
     res.send(user);
   });

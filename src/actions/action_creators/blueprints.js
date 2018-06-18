@@ -28,13 +28,14 @@ export function editBlueprint(payload) {
 
 export const addResourceToBlueprint = (resource, blueprintId, userId) => async dispatch => {
   console.log('resource on addResourceToBlueprint action creator', resource)
+  const { refs } = resource;
 
   console.log('stringified resource', JSON.stringify(resource))
   const resourceAsString = JSON.stringify(resource);
 
   const res = await axios
       .post(`http://localhost:5000/api/users/${userId}/blueprints/${blueprintId}/resources`,
-        {resourceAsString})
+        {resourceAsString, refs})
 
   dispatch({ type: ADD_RESOURCE_TO_BLUEPRINT, payload: res.data, blueprintId })
 }

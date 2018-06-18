@@ -14,7 +14,9 @@ const blueprintSchema = new Schema({
 
     // }]
   // }]
-  resources: [String]
+  resources: [String],
+  relatives: [String]
+
 })
 
 
