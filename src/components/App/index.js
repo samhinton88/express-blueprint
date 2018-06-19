@@ -32,7 +32,10 @@ class App extends Component {
     const { user } = this.props;
 
     return (
-      <div className='global-container'>
+      <div
+        className='global-container'
+
+      >
         <LeftNav />
         <div className='editor-container'>
           <div className='app'>

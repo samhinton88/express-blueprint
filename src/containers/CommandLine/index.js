@@ -24,6 +24,9 @@ class CommandLine extends Component {
 
     const imperative = value.split(' ')[0];
     switch (imperative) {
+      case 'test':
+        const testParse = parse('create resource nesty stats:{nestedProp:N,deepStats2:{deeperProp2:N},deepStats:{deepProp:N,deeperStats:{deeperProp:N}}}')
+        this.props.handleCreateExecution(testParse, activeBlueprintId, user._id);
       case 'create':
         const parsedCommand = parse(value);
 
@@ -38,6 +41,8 @@ class CommandLine extends Component {
         break
       case 'viewer':
         const viewerCommand = value.split(' ')[1];
+      default:
+        console.log('verb not known')
     }
 
     this.props.refreshUser(user._id)

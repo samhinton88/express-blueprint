@@ -5,7 +5,8 @@ import * as actions from '../../actions/action_creators';
 
 class ResourceGraphic extends Component {
   state = {
-    timer: 0
+    timer: 0,
+    isFocused: false
   }
 
   componentDidMount() {
@@ -38,14 +39,18 @@ class ResourceGraphic extends Component {
     const { data } = this.props;
     console.log('clicked')
     this.props.setModeledResource(data)
+
   }
 
   render() {
-    const { data: { resourceName, props }, geometry: { cx, cy, r } } = this.props;
+    const { data: { resourceName, props }, geometry: { cx, cy, r }, modeledResource } = this.props;
 
     const style = {};
     style.fill = 'rgba(255,255, 255, 1)'
-    style.stroke = 'rgba(0, 0, 0, 1)'
+    style.stroke = modeledResource && modeledResource.resourceName === resourceName
+                  ? 'red'
+                  :
+                  'rgba(0, 0, 0, 1)'
     return(
       <g>
         {circleToPath({cx, cy, r, id: 'user', style, cb: this.handleClick })}
@@ -62,6 +67,12 @@ class ResourceGraphic extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    modeledResource: state.uiReducer.modeledResource
+  }
+}
+
 const mapDispatchToProps = (dispatch) => {
   return {
     setModeledResource: (resource) => {
@@ -70,6 +81,6 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-const WiredResourceGraphic = connect(null, mapDispatchToProps)(ResourceGraphic);
+const WiredResourceGraphic = connect(mapStateToProps, mapDispatchToProps)(ResourceGraphic);
 
 export default WiredResourceGraphic;

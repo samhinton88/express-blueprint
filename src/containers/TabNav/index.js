@@ -28,6 +28,7 @@ class TabNav extends Component {
             onClick={() => handleSelect(_id)}
             theme={theme}
             isActive
+            resourceCount={b.resources ? b.resources.length : 0}
           />
         )
 
@@ -38,7 +39,7 @@ class TabNav extends Component {
             blueprintName={blueprintName}
             onClick={() => handleSelect(_id)}
             theme={theme}
-
+            resourceCount={b.resources ? b.resources.length : 0}
           />
         )
       }

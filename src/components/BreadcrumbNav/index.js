@@ -8,8 +8,8 @@ class BreadcrumbNav extends Component {
   renderBreadcrumbs = () => {
     const { lookUp, onBreadcrumbClick } = this.props;
 
-    return lookUp.map((lu) => {
-      return <Breadcrumb onClick={onBreadcrumbClick} lookupName={lu}/>
+    return lookUp.map((lu, i) => {
+      return <Breadcrumb onClick={onBreadcrumbClick} lookupName={lu} index={i}/>
     })
   }
 
