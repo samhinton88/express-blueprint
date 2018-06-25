@@ -1,6 +1,6 @@
 import CLI from './command-line-helpers/parse';
 
-test('returns config object', () => {
+xtest('returns config object', () => {
   console.log(CLI('create resource user local:{email:S,password:S} stats:{won:N,lost:N,logs:{winLog:S},drawn:N}'))
   expect(
     CLI('create resource user local:{email:S,password:S} stats:{won:N,lost:N,logs:{winLog:s},drawn:N}'))
@@ -42,7 +42,7 @@ test('returns config object', () => {
     )
 })
 
-test('does it really well', () => {
+xtest('does it really well', () => {
   expect(CLI('create resource nesty stats:{nestedProp:N,deepStats:{deepProp:N,deeperStats:{deeperProp:N}}}'))
         .toEqual(
         {

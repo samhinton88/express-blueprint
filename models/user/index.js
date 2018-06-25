@@ -22,7 +22,8 @@ const blueprintSchema = new Schema({
 
 const userSchema = new Schema({
   email: String,
-  blueprints: [blueprintSchema]
+  blueprints: [blueprintSchema],
+  openBlueprints: [String]
 });
 
 const model = mongoose.model('User', userSchema);

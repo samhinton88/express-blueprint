@@ -1,5 +1,5 @@
 export const scanBackFrom = (index, arr) => {
-  console.log('scan back from index', index, 'arr', arr)
+  // console.log('scan back from index', index, 'arr', arr)
   const toProcess = arr;
   let propNameStart
 
@@ -22,6 +22,7 @@ export const isPlural = (string) => {
 }
 
 export const getBracketedVal = (opt) => {
+  if (!opt || !opt.split('[')[1]) { return }
   let defaultValue = opt.split('[')[1].split('');
   defaultValue.pop()
   const defValue = defaultValue.join('');

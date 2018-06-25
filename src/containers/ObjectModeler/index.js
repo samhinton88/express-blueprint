@@ -76,7 +76,7 @@ class ObjectModeler extends Component {
 
 
     return (
-      <div className='object-modeler'>
+      <div className='object-modeler' style={{background: 'transparent'}}>
 
         <div className='object-modeler-container'>
           <BreadcrumbNav

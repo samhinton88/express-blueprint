@@ -1,0 +1,41 @@
+.error-emitter {
+  color: black;
+}
+
+.error-emitter-container {
+  height: 200px;
+  background: white;
+  position: relative;
+  margin-top: 20px;
+}
+
+.error-emoji {
+  font-size: 30px;
+}
+
+.error-emitter-error {
+  background: blue;
+  padding:3px;
+  border-radius: 10px;
+  color: white;
+  margin-bottom: 2px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.error-body {
+
+}
+
+.error-hint-btn {
+  background: white;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  color: orange;
+}

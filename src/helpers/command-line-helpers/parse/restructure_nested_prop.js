@@ -1,5 +1,5 @@
 function nestAtLookup(memo={}, candidate) {
-  console.log('nestAtLookup with memo', memo, 'candidate', candidate)
+  // console.log('nestAtLookup with memo', memo, 'candidate', candidate)
   const { scope, propName, props, atDepth } = candidate;
 
   if (atDepth === 1) {

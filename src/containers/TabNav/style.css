@@ -1,7 +1,7 @@
 .tab-nav {
   grid-area: frame;
-  background: rgba(200, 200, 200, 1);
+  background: transparent;
   display: flex;
   align-items: flex-end;
-  margin-top: 20px
+  margin-top: 10px
 }

@@ -6,7 +6,6 @@ import { advanceFrame, getInitialGeometry, mapRelations } from './geometry_helpe
 import ResourceGraphic from '../../components/ResourceGraphic';
 import  * as actions  from '../../actions/action_creators'
 
-console.log(getInitialGeometry)
 
 class Canvas extends Component {
   getInitialGeometry = getInitialGeometry
@@ -76,13 +75,12 @@ class Canvas extends Component {
       const {cx: ox, cy: oy} = resourceMap[origin];
       const {cx: dx, cy: dy} = resourceMap[destination];
 
-      return <line x1={ox} x2={dx} y1={oy} y2={dy} stroke="black" key={origin + destination + i}/>
+      return <line x1={ox} x2={dx} y1={oy} y2={dy} stroke="rgba(90, 90, 200, 1)" key={origin + destination + i}/>
     })
 
   }
 
   render() {
-    // console.log('props in canvas', this.props)
 
     return (
       <div className='canvas'>

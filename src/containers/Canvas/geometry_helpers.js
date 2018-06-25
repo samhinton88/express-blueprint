@@ -1,3 +1,6 @@
+'use strict'
+import placeResourcesTopDown from './place_resources_top_down';
+
 export const advanceFrame = function () {
   const { timer, resourcePositions } = this.state;
 
@@ -25,35 +28,25 @@ export const advanceFrame = function () {
 }
 
 export const getInitialGeometry = function () {
+  // position canvas resources
+
   const { blueprints, activeBlueprintId } = this.props;
 
   if (!blueprints || !activeBlueprintId) { return }
 
   const {resources} = blueprints.find((bp) => bp._id === activeBlueprintId)
 
-  console.log(resources)
+  const initialResourceGeometry = placeResourcesTopDown(resources);
 
-  const initialResourceGeometry =  resources.map((res, i) => {
-    const sizeMultiplier = res.props ? res.props.length : 1
-    const { resourceName, props} = res;
-
-    const randomYDisplacement = Math.random() * (150 - 0) + 0;
-
-    return {
-      cx: (1000 / (resources.length + 1))  * (i + 1),
-      cy: 250 + randomYDisplacement,
-      r: sizeMultiplier + 20,
-      resourceName,
-      props
-
-    }
-  })
-
+  if (!initialResourceGeometry) { return }
   const resourceMap = {};
+
+
 
   initialResourceGeometry.forEach((r) => {
     resourceMap[r.resourceName] = r;
   })
+
 
   this.setState({resourcePositions: initialResourceGeometry, resourceMap})
 }

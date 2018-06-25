@@ -8,11 +8,11 @@ import processConfig from './process_config';
 import mapBodyToNestingAbstract from './map_body_to_nesting_abstract';
 
 
-export default function _parseProps(memo, propsString) {
+export default function _parseProps(memo, propsString, resouceObject) {
   // establish layer
   const [propName, propBody] = propsString.split(/:(.+)/);
 
-  console.log('propName', propName, 'propBody', propBody)
+  // console.log('propName', propName, 'propBody', propBody)
 
   memo.propName = propName;
 
@@ -28,7 +28,7 @@ export default function _parseProps(memo, propsString) {
     nestingMap = scanCurlyBraces(memo, propsString);
 
     // process nesting map into prop name and config pairs
-    console.log('process nesting map into props',  nestingMap)
+    // console.log('process nesting map into props',  nestingMap)
 
     const nestingMapWithBodies = nestingMap.map((m) => {
 
@@ -36,25 +36,25 @@ export default function _parseProps(memo, propsString) {
 
     })
 
-    console.log('nesting map with bodies', nestingMapWithBodies)
+    // console.log('nesting map with bodies', nestingMapWithBodies)
 
     const seperatedObjects = filterOutNestedObjects(nestingMapWithBodies);
 
-    console.log('seperatedObjects', seperatedObjects);
+    // console.log('seperatedObjects', seperatedObjects);
 
     // object bodies can now be safely parsed
     const parsedObjects = parseObjectBodies(seperatedObjects);
 
-    console.log('parsedObjects', parsedObjects);
+    // console.log('parsedObjects', parsedObjects);
 
     // once parsed, resstructure objects to reflect nesting
     const prop = restructureNestedProp(parsedObjects);
 
-    console.log('restructured prop', prop)
+    // console.log('restructured prop', prop)
 
     return prop;
   };
 
-  return { ...processConfig(propBody.split(';')), propName }
+  return { ...processConfig(propBody.split(';'), propName, resouceObject), propName }
 
 }

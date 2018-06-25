@@ -9,12 +9,12 @@ class TabNav extends Component {
 
   renderTabs = () => {
     const { blueprints, handleSelect, activeBlueprint } = this.props;
-    console.log('props in rendertabs', this.props)
+
 
     const theme = {};
     theme.frameTab = {};
     theme.frameTab.active = { background: 'rgba(254, 254, 254, 1)'};
-    theme.frameTab.inactive = { background: 'darkgrey', color: 'grey'}
+    theme.frameTab.inactive = { background: 'rgba(240, 240, 240, 0.3)', color: 'grey'}
 
     if(!blueprints || !activeBlueprint) { return }
     return blueprints.map((b) => {

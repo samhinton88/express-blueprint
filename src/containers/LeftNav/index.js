@@ -11,7 +11,12 @@ class LeftNav extends Component {
 
     return (
       <div className='left-nav'>
-        <button onClick={this.handleClick}>PRINT CODEBASE</button>
+        <button
+          onClick={this.handleClick}
+          className='side-btn-lrg'
+        >
+          PRINT CODEBASE
+        </button>
       </div>
     )
   }

@@ -1,7 +1,7 @@
 'use strict'
 import processConfig from './process_config';
 
-export default function parseObjectBodies(objects) {
+export default function parseObjectBodies(objects, resouceObject) {
   return objects.map((o) => {
     // props deliniated by commas
 
@@ -18,7 +18,7 @@ export default function parseObjectBodies(objects) {
 
 
       // options deliniated by semi-colon
-      const config = processConfig(propConfig.split(';'), propName);
+      const config = processConfig(propConfig.split(';'), propName, resouceObject);
 
       return { ...config, propName }
     })

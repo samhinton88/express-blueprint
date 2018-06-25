@@ -1,34 +1,39 @@
 import React, { Component } from 'react';
 import style from './style.css';
-import parse from '../../helpers/command-line-helpers/parse';
 import { connect } from 'react-redux';
 import * as actions  from '../../actions/action_creators'
 
+import parse from '../../helpers/command-line-helpers/parse';
+import linter from '../../helpers/command-line-helpers/linter';
 import CMDChar from '../../components/CMDChar';
+import ErrorEmitter from '../../components/ErrorEmitter';
 
 class CommandLine extends Component {
   state = {
     value: '',
     valueBeforeCursor: '',
     valueAfterCursor: '',
-    cursorPosition: -1
+    cursorPosition: -1,
+    errors: null
   }
 
   handleEnter = () => {
-    const { value } = this.state;
+    console.log('TRYING TO SUBMIT')
+    const { value, errors } = this.state;
     const { activeBlueprintId, blueprints, user } = this.props;
 
 
+    if (!activeBlueprintId || !blueprints || !user) { return }
 
     const activeBlueprint = blueprints.find((b) => b._id === activeBlueprintId)
-
+    console.log('THROUGH RETURN CHECKS')
     const imperative = value.split(' ')[0];
     switch (imperative) {
       case 'test':
         const testParse = parse('create resource nesty stats:{nestedProp:N,deepStats2:{deeperProp2:N},deepStats:{deepProp:N,deeperStats:{deeperProp:N}}}')
         this.props.handleCreateExecution(testParse, activeBlueprintId, user._id);
       case 'create':
-        const parsedCommand = parse(value);
+        const parsedCommand = parse(value, activeBlueprint);
 
         console.log(parsedCommand)
 
@@ -135,7 +140,14 @@ class CommandLine extends Component {
   }
 
   handleDummyInputKeyUp = (e) => {
+    const { activeBlueprintId, blueprints } = this.props;
+
+    if (!activeBlueprintId || !blueprints) { return }
+
+    const activeBlueprint = blueprints.find((b) => b._id === activeBlueprintId)
+
     // prevent input from being rendered into dummy input div
+
     this.refs.dummyInput.innerHTML = '';
 
     // set input into state, adjust dummy cursor position
@@ -192,18 +204,21 @@ class CommandLine extends Component {
       newCursorPosition = cursorPosition + cursorAdjustment;
     }
 
+    const errors = linter(update, null, activeBlueprint)
+
     this.setState(
       {
         value: update,
         cursorPosition: newCursorPosition,
         valueBeforeCursor: update.split('').slice(0, newCursorPosition + 1).join(''),
-        valueAfterCursor: update.split('').slice(newCursorPosition + 1, update.length).join('')
+        valueAfterCursor: update.split('').slice(newCursorPosition + 1, update.length).join(''),
+        errors
       })
     }
 
   render() {
     // render editable div with transparent overlay to rerender content
-    console.log('props in commandline render', this.props)
+    const { errors } = this.state;
 
     return (
       <div className='command-line-container'>
@@ -221,6 +236,9 @@ class CommandLine extends Component {
             >
             </div>
           </div>
+        </div>
+        <div className='error-emitter-container'>
+          <ErrorEmitter errors={errors}/>
         </div>
       </div>
     )

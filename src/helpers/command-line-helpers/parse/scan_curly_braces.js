@@ -8,7 +8,7 @@ export default function scanCurlyBraces(memo = {}, string) {
   const openCache = [], processedCache = [], obj = {};
   let depth = 0, scope = [];
 
-  console.log('string in scanCurlyBraces', string)
+  // console.log('string in scanCurlyBraces', string)
 
   const toProcess = string.split('')
 
@@ -21,11 +21,11 @@ export default function scanCurlyBraces(memo = {}, string) {
       const propName = toProcess.slice(propNameStart, i - 1).join('')
 
 
-      console.log('got propNameStart', propNameStart)
+      // console.log('got propNameStart', propNameStart)
 
       obj[propName] = [];
 
-      console.log('obj after attempt to add propname', obj)
+      // console.log('obj after attempt to add propname', obj)
 
       openCache.push({
         propName: toProcess.slice(propNameStart, i - 1).join(''),
