@@ -16,7 +16,7 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 
-app.use(express.static(__dirname + '/dist/bundle.js'))
+app.use(express.static(__dirname + '/dist/bundle'))
 
 require('./routes')(app);
 
