@@ -15,7 +15,7 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 
-app.user(express.static(__dirname + './dist/bundle.js'))
+app.use(express.static(__dirname + './dist/bundle.jsÏ'))
 
 require('./routes')(app);
 
@@ -24,4 +24,3 @@ const PORT = 5000;
 app.listen(PORT, () => {
   console.log(`Listening on port`, PORT);
 });
-
