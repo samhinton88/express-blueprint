@@ -1,9 +1,7 @@
 import { ADD_BLUEPRINT, EDIT_BLUEPRINT, SET_ACTIVE_BLUEPRINT, ADD_RESOURCE_TO_BLUEPRINT, GET_BLUEPRINTS, DELETE_RESOURCE } from '../types';
 import axios from 'axios'
 
-const ROOT_URL = process.env.NODE_ENV === 'production'
-  ? 'https://express-blueprint.herokuapp.com'
-  : 'http://localhost:5000'
+const ROOT_URL =  'http://localhost:5000'
 
 export const addBlueprint = (id) => async dispatch => {
     const payload = {blueprintName: 'click to edit name...', resources: []};
