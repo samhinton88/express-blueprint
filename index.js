@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 const cors = require('cors');
 const morgan = require('morgan');
 
-const mongoUri = require('./config/keys');
+const {mongoUri} = require('./config/keys');
 
 mongoose.Promise = global.Promise;
 console.log('this should be the mongo uri', mongoUri)
