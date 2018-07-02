@@ -8,7 +8,8 @@
     "start": "webpack-dev-server --config ./webpack.config.js --mode development",
     "start-hot": "nodemon './node_modules/webpack-dev-server/bin/webpack-dev-server.js'",
     "serve": "nodemon index.js",
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "build": "webpack"
   },
   "proxy": {
     "/api/*": {

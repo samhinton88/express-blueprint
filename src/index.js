@@ -13,7 +13,6 @@ const store = createStore(expressBlueprintApp, {}, applyMiddleware(reduxThunk));
 
 const title = 'Express Blueprint';
 
-console.log('store.getState', store.getState())
 
 ReactDOM.render(
   <Provider store={store}>
