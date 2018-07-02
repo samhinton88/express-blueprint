@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+const path = require('path');
 
 const cors = require('cors');
 const morgan = require('morgan');
@@ -16,7 +17,7 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 
-app.use(express.static(__dirname + '/dist/bundle'))
+app.use(express.static(path.join(__dirname + '/dist/')))
 
 require('./routes')(app);
 
