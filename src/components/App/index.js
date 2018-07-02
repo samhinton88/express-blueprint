@@ -14,13 +14,17 @@ import axios                from 'axios';
 
 import style                from './style.css';
 
+const URL = process.env.NODE_ENV === 'production'
+    ? 'https://dashboard.heroku.com/apps/express-blueprint'
+   : 'http://localhost:5000'
+
 class App extends Component {
   state = {
     user: null,
     timer: 0
   }
   async componentDidMount() {
-    const user = await axios.get('http://localhost:5000/api/users/5b1efedc4ac47082a45920cb');
+    const user = await axios.get(URL + '/api/users/5b1efedc4ac47082a45920cb');
     this.props.setActiveUser(user.data);
 
     this.props.getBlueprints(user.data._id)
