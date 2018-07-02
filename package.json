@@ -5,8 +5,9 @@
   "author": "Sam Hinton",
   "license": "MIT",
   "scripts": {
-    "start": "webpack-dev-server --config ./webpack.config.js --mode development",
+    "start-dev": "webpack-dev-server --config ./webpack.config.js --mode development",
     "start-hot": "nodemon './node_modules/webpack-dev-server/bin/webpack-dev-server.js'",
+    "start":"node index.js",
     "serve": "nodemon index.js",
     "test": "jest --watch",
     "build": "webpack"
