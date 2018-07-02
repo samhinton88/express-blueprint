@@ -8,7 +8,7 @@ const morgan = require('morgan');
 const { mongoUri } = require('./config/keys');
 
 mongoose.Promise = global.Promise;
-console.log(mongoUri)
+console.log('this should be the mongo uri', mongoUri)
 mongoose.connect(mongoUri);
 
 const app = express();
